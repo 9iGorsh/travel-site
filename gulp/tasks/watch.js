@@ -21,9 +21,17 @@ gulp1.task('watch', function(){
 	watch('./app/assets/styles/', function(){
 		gulp1.start('cssInject');
 	});
+	
+	watch('./app/assets/scripts/', function(){
+		gulp1.start('scriptsRefresh');
+	});
 });
 
 gulp1.task('cssInject', ['styles'], function(){
 	return gulp1.src('./app/temp/styles/styles.css')
 		.pipe(browserSync.stream());
+});
+
+gulp1.task('scriptsRefresh', ['scripts'], function(){
+	browserSync.reload();
 });
