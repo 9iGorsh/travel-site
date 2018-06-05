@@ -1,26 +1,13 @@
-﻿var gulp =require('gulp'),
+var gulp =require('gulp'),
 svgSprite =require('gulp-svg-sprite'),
 rename =require('gulp-rename'),
 del =require('del'),
 svg2png =require('gulp-svg2png');
-var path =require('path');
 
 var config ={
-		shape:{
-			spacing:{
-				padding:1
-			}
-		},
 		mode:{
 			css:{
-				variables:{
-				  replaceSvgWithPng:function(){
-					return function(sprite, render){
-					  return render(sprite).split('.svg').join('.png');
-					}
-				  }
-				},
-							
+			/*	sprite: 'svg/sprite.svg',*/
 				sprite: 'sprite.svg',
 				render:{
 					css:{
@@ -46,11 +33,9 @@ gulp.task('createSprite', ['beginClean'], function(){
 });
 
 gulp.task('createPngCopy', ['createSprite'], function(){
-	return gulp.src(path.resolve(__dirname,"./app/temp/sprite/css/*.svg"))
-//	return gulp.src('./app/temp/sprite/css/*.svg')//Error: Unable to load the source file.
+	return gulp.src('./app/temp/sprite/css/*.svg')
 	.pipe(svg2png())
-	.pipe(gulp.dest(path.resolve(__dirname,"./app/temp/sprite/css")));
-//	.pipe(gulp.dest('./app/temp/sprite/css'));
+	.pipe(gulp.dest('./app/temp/sprite/css'));
 });
 
 gulp.task('copySpriteGraphic', ['createPngCopy'], function(){
